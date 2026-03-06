@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="WixToolset.Sdk/4.0.5">
+
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <OutputName>CSharpAppSetup</OutputName>
+  </PropertyGroup>
+
+  <!-- Reference the main application project so the installer builds it first -->
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpApp\CSharpApp.csproj">
+      <Private>true</Private>
+      <SetConfiguration>Release</SetConfiguration>
+      <SetPlatform>x64</SetPlatform>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>
