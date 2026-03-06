@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Package.wxs - WiX v4 installer definition for CSharpApp.
+
+  This file defines:
+    - Product metadata (name, version, manufacturer, upgrade code)
+    - Installation directory structure
+    - Files to install (the compiled application and its dependencies)
+    - Start Menu shortcut
+    - Desktop shortcut (optional, commented out by default)
+    - Upgrade logic (always replace older versions)
+
+  Rebuild this project in Visual Studio (Release | x64) to produce
+  CSharpAppSetup.msi in Installer\bin\Release\.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package
+    Name="CSharpApp"
+    Manufacturer="Your Company"
+    Version="1.0.0"
+    UpgradeCode="d5a2f3c4-1234-5678-abcd-ef0123456789"
+    Compressed="yes"
+    Scope="perMachine">
+
+    <!-- Allow major upgrades and remove older versions automatically -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <!-- Media definition: embed all files in the MSI cabinet -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- ==================== Directory structure ==================== -->
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="CSharpApp" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="CSharpApp" />
+    </StandardDirectory>
+
+    <!-- ==================== Component: main executable ==================== -->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+      <!--
+        HarvestProject: WiX 4 automatically harvests all publish output from
+        the referenced CSharpApp project, so there is no need to list every
+        file individually.  Only override KeyPath when required.
+      -->
+      <Component Id="MainExecutable" Guid="a1b2c3d4-5678-90ab-cdef-012345678901">
+        <File
+          Id="CSharpAppEXE"
+          Source="$(var.CSharpApp.TargetPath)"
+          KeyPath="yes" />
+      </Component>
+
+    </ComponentGroup>
+
+    <!-- ==================== Start Menu shortcut ==================== -->
+    <ComponentGroup Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="b2c3d4e5-6789-01ab-cdef-123456789012">
+
+        <Shortcut
+          Id="ApplicationStartMenuShortcut"
+          Name="CSharpApp"
+          Description="Launch CSharpApp"
+          Target="[INSTALLFOLDER]CSharpApp.exe"
+          WorkingDirectory="INSTALLFOLDER" />
+
+        <!-- Remove the Start Menu folder on uninstall -->
+        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
+
+        <!-- Registry key required by WiX to track this component -->
+        <RegistryValue
+          Root="HKCU"
+          Key="Software\YourCompany\CSharpApp"
+          Name="installed"
+          Type="integer"
+          Value="1"
+          KeyPath="yes" />
+
+      </Component>
+    </ComponentGroup>
+
+    <!-- ==================== Feature definition ==================== -->
+    <Feature Id="ProductFeature" Title="CSharpApp" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ApplicationShortcuts" />
+    </Feature>
+
+  </Package>
+</Wix>

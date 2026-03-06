@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "JslunDZ0XM8=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/frontend-with-backend-application/frontend-with-backend-application/CSharpInstaller/CSharpApp/CSharpApp.csproj",
+  "expectedPackageFiles": [
+    "/tmp/codeql-scratch-518fbe59e5e0b1b7/dbs/csharp/working/packages/microsoft.netcore.app.ref/8.0.23/microsoft.netcore.app.ref.8.0.23.nupkg.sha512",
+    "/tmp/codeql-scratch-518fbe59e5e0b1b7/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/8.0.23/microsoft.aspnetcore.app.ref.8.0.23.nupkg.sha512",
+    "/tmp/codeql-scratch-518fbe59e5e0b1b7/dbs/csharp/working/packages/microsoft.netcore.app.host.win-x64/8.0.23/microsoft.netcore.app.host.win-x64.8.0.23.nupkg.sha512"
+  ],
+  "logs": []
+}
